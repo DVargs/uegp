@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="container my-5">
+    <h2>Resultados de búsqueda para "{{ query }}"</h2>
+
+    {% if resultados %}
+        <ul class="list-group">
+            {% for articulo in resultados %}
+                <li class="list-group-item">
+                    <h5>{{ articulo.titulo }}</h5>
+                    <p>{{ articulo.contenido|truncatewords:30 }}</p>
+                    <a href="{% url 'articulo:detalle_articulo' articulo.id %}" class="btn btn-primary btn-sm">Leer más</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron resultados para tu búsqueda.</p>
+    {% endif %}
+</div>
+{% endblock %}
