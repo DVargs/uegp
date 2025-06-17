@@ -19,6 +19,19 @@
             <a class="btn btn-success btn-lg" href="{% url 'apps.articulo:crear_categoria' %}">Crear nueva categoría</a>
     </div>
     {% endif %}
+    {% if is_paginated %}
+    <nav class="pagination mt-4">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if orden %}&orden={{ orden }}{% endif %}">Anterior</a>
+        {% endif %}
+
+        <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if orden %}&orden={{ orden }}{% endif %}">Siguiente</a>
+        {% endif %}
+    </nav>
+    {% endif %}
     <div class="row text-center pt-3">
         <div class="col-lg-6 m-auto">
             <h1 class="h1">Artículos</h1>

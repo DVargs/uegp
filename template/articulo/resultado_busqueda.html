@@ -10,7 +10,7 @@
                 <li class="list-group-item">
                     <h5>{{ articulo.titulo }}</h5>
                     <p>{{ articulo.contenido|truncatewords:30 }}</p>
-                    <a href="{% url 'articulo:detalle_articulo' articulo.id %}" class="btn btn-primary btn-sm">Leer más</a>
+                    <a href="{% url 'apps.articulo:articulo_detalle' articulo.id %}" class="btn btn-success">Leer más</a>
                 </li>
             {% endfor %}
         </ul>

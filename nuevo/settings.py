@@ -68,7 +68,7 @@ ROOT_URLCONF = 'nuevo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join((BASE_DIR),'../nuevo/template')],
+        'DIRS': [os.path.join((BASE_DIR),'template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

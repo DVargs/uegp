@@ -51,8 +51,8 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo h2 align-self-center" href="{% url 'index' %}">
-                Proyecto
+            <a href="{% url 'index' %}">
+                <img class="logo-uegp" src="{% static 'img/logo.png' %}" alt="Logo">
             </a>
 
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
@@ -65,29 +65,30 @@
                             <a class="nav-link" href="{% url 'index' %}">Acerca de nosotros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'apps.articulo:articulos' %}">Artículos</a>
+                            <a class="nav-link" href="{% url 'apps.articulo:articulos' %}">Carreras</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
                         </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'apps.articulo:articulos' %}">Alumnado</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contacto' %}">Sistema de asistencias</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
-                <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                            <div class="input-group-text">
-                                <i class="fa fa-fw fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
+                    
                     {% if user.is_authenticated %}
-                        <a class="nav-icon position-relative text-decoration-none" href="{% url 'apps.usuario:logout' %}">
-                            <span class="position-absolute top-100 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ user.username }}: Cerrar Sesión</span>
-                        </a>
+                            <form class="nav-icon position-relative text-decoration-none" action="{% url 'apps.usuario:logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit"><span class="position-absolute top-200 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ user.username }}: Cerrar Sesión</span></button>
+                            </form>
                     {% else %}
                         <a class="nav-icon position-relative text-decoration-none" href="{% url 'apps.usuario:login' %}?next={{ request.path }}">
-                            <span class="position-absolute top-100 left-100 translate-middle badge rounded-pill bg-light text-dark">Iniciar Sesión</span>
+                            <span class="position-absolute top-200 left-100 translate-middle badge rounded-pill bg-light text-dark">Iniciar Sesión</span>
                         </a>
                     {% endif %}
                 </div>
@@ -137,7 +138,7 @@
             <div class="row">
 
                 <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Info 2023</h2>
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">U.E.G.P Nº 172 "Teodolindo Felipe Bittel"</h2>
                     <ul class="list-unstyled text-light footer-link-list">
                         <li>
                             <i class="fas fa-map-marker-alt fa-fw"></i>
@@ -155,25 +156,23 @@
                 </div>
 
                 <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Artículos</h2>
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Mapa del sitio</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
+                        <li><a class="text-decoration-none" href="#">Inicio</a></li>
+                        <li><a class="text-decoration-none" href="#">Carreras</a></li>
+                        <li><a class="text-decoration-none" href="#">Acerca de nosotros</a></li>
+                        <li><a class="text-decoration-none" href="#">Profesores</a></li>
+                        <li><a class="text-decoration-none" href="#">Alumnado</a></li>
+                        <li><a class="text-decoration-none" href="#">Contacto</a></li>
                     </ul>
                 </div>
 
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Galería</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Inicio</a></li>
-                        <li><a class="text-decoration-none" href="#">Acerca de nosotros</a></li>
-                        <li><a class="text-decoration-none" href="#">Artículos</a></li>
-                        <li><a class="text-decoration-none" href="#">Contacto</a></li>
+                        <li><a class="text-decoration-none" href="#">Noticias</a></li>
+                        <li><a class="text-decoration-none" href="#">Fotos de clases</a></li>
+                        <li><a class="text-decoration-none" href="#">Residencia</a></li>
                     </ul>
                 </div>
 
@@ -200,10 +199,10 @@
                     </ul>
                 </div>
                 <div class="col-auto">
-                    <label class="sr-only" for="subscribeEmail">Email address</label>
+                    <label class="sr-only" for="subscribeEmail">Correo electrónico</label>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Correo electrónico">
-                        <div class="input-group-text btn-success text-light">Recibí publicaciones</div>
+                        <div class="input-group-text btn-success text-light">Recibí Noticias</div>
                     </div>
                 </div>
             </div>
@@ -214,8 +213,8 @@
                 <div class="row pt-2">
                     <div class="col-12">
                         <p class="text-left text-light">
-                            Informatorio &copy; Chaco
-                            | Diseñado por <a rel="sponsored" href="#" target="_blank">Comisión 2 2023</a>
+                            U.E.G.P Nº 172 "Teodolindo Felipe Bittel" &copy; Machagai,Chaco
+                            | Diseñado por <a rel="sponsored" href="#" target="_blank">Diego Vargas</a>
                         </p>
                     </div>
                 </div>

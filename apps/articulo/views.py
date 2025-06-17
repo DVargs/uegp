@@ -9,12 +9,16 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.contrib import messages
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth.views import redirect_to_login
 
 #Todos los artículos
 class ArticuloListView(ListView):
     model = Articulo
     template_name = "articulo/articulos.html" 
     context_object_name = "articulos" 
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -38,7 +42,7 @@ class ArticuloDetailView(DetailView):
     model = Articulo
     template_name = "articulo/post.html" 
     success_url = 'articulos'
-    context_object_name = "articulos" 
+    context_object_name = "articulo" 
     pk_url_kwarg = "id" 
     queryset = Articulo.objects.all()
 
@@ -50,6 +54,9 @@ class ArticuloDetailView(DetailView):
 
     def post(self, request, *args, **kwargs):
         form = ComentarioForm(request.POST)
+        # if not request.user.is_authenticated:
+        #     return redirect_to_login(request.get_full_path())
+        
         if form.is_valid():
             messages.success(self.request, 'Comentario creado con éxito.')
             comentario = form.save(commit=False)
@@ -58,7 +65,7 @@ class ArticuloDetailView(DetailView):
             comentario.save()
             return redirect('apps.articulo:articulo_detalle', id=self.kwargs['id'])
         else:
-            context = self.get_context_data(**kwargs)
+            context = self.get_context_data(**kwargs, form=form)
             context['form'] = form
             return self.render_to_response(context)
 

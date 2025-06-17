@@ -13,8 +13,8 @@
         <div class="row">
             <div class="col-lg-5 mt-5">
                 <div class="card mb-3">
-                    {% if articulos.imagen %}
-                        <img class="card-img img-fluid" src="{{ articulos.imagen.url }}" alt="">
+                    {% if articulo.imagen %}
+                        <img class="card-img img-fluid" src="{{ articulo.imagen.url }}" alt="">
                     {% else %}
                         <img class="img-fluid" src="{% static '/assets/img/banner_img_01.jpg' %}" alt="">
                     {% endif %}
@@ -24,18 +24,18 @@
             <div class="col-lg-7 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="h2">{{ articulos.titulo | capfirst }}</h1>
+                        <h1 class="h2">{{ articulo.titulo | capfirst }}</h1>
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <h6>Categoría</h6>
                             </li>
                             <li class="list-inline-item">
-                                <p class="text-muted"><strong>{{ articulos.categoria | capfirst }}</strong></p>
+                                <p class="text-muted"><strong>{{ articulo.categoria | capfirst }}</strong></p>
                             </li>
-                        <p class="h6 py-2">Resumen: {{ articulos.resumen | capfirst }}</p>
+                        <p class="h6 py-2">Resumen: {{ articulo.resumen | capfirst }}</p>
                         <h6>Contenido</h6>
                         </ul>
-                        <p class="h3 py-2">{{ articulos.contenido | capfirst }}</p>
+                        <p class="h3 py-2">{{ articulo.contenido | capfirst }}</p>
                         <form action="" method="GET">
                             <div class="row pb-3">
                                 <div class="col d-grid">
@@ -44,11 +44,11 @@
                                 <!--Solo si es colaborador-->
                                 {% if user.is_superuser or request.user|has_group:"Colaborador"  %}
                                 <div class="col d-grid">
-                                    <a href="{% url 'apps.articulo:articulo_actualizar' pk=articulos.pk %}" class="btn btn-success btn-lg" value="eliminar">Editar articulo</a>
+                                    <a href="{% url 'apps.articulo:articulo_actualizar' pk=articulo.pk %}" class="btn btn-success btn-lg" value="eliminar">Editar articulo</a>
                                 </div>
                                 <!--Solo si es colaborador-->
                                 <div class="col d-grid">
-                                        <a href="{% url 'apps.articulo:articulo_eliminar' pk=articulos.pk %}" class="btn btn-success btn-lg" value="eliminar">Eliminar articulo</a>
+                                        <a href="{% url 'apps.articulo:articulo_eliminar' pk=articulo.pk %}" class="btn btn-success btn-lg" value="eliminar">Eliminar articulo</a>
                                 </div>  
                                 {% endif %}                                                           
                             </div>
